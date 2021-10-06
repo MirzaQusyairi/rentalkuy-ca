@@ -9,6 +9,10 @@ import (
 	_userController "rentalkuy-ca/controllers/users"
 	_userRepo "rentalkuy-ca/drivers/databases/users"
 
+	_itemService "rentalkuy-ca/business/items"
+	_itemController "rentalkuy-ca/controllers/items"
+	_itemRepo "rentalkuy-ca/drivers/databases/items"
+
 	_dbDriver "rentalkuy-ca/drivers/mysql"
 
 	_middleware "rentalkuy-ca/app/middlewares"
@@ -34,6 +38,7 @@ func init() {
 func dbMigrate(db *gorm.DB) {
 	db.AutoMigrate(
 		&_userRepo.Users{},
+		&_itemRepo.Items{},
 	)
 }
 
@@ -60,8 +65,14 @@ func main() {
 	userService := _userService.NewUserService(userRepo, 10, &configJWT)
 	userCtrl := _userController.NewUserController(userService)
 
+	itemRepo := _driverFactory.NewItemRepository(db)
+	itemService := _itemService.NewItemService(itemRepo)
+	itemCtrl := _itemController.NewItemController(itemService)
+
 	routesInit := _routes.ControllerList{
+		JWTMiddleware:  configJWT.Init(),
 		UserController: *userCtrl,
+		ItemController: *itemCtrl,
 	}
 
 	routesInit.RouteRegister(e)
