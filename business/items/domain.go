@@ -22,16 +22,14 @@ type Service interface {
 	Create(userID int, domain *Domain) (Domain, error)
 	Update(userID int, itemID int, domain *Domain) (Domain, error)
 	Delete(userID, itemID int) (string, error)
+	GetByID(itemID int) (Domain, error)
 	GetAllByUserID(userID int) ([]Domain, error)
-	// GetByID(userID, id int) (Domain, error)
-	// DeleteItems(userID int, itemsID int)
 }
 
 type Repository interface {
 	Create(userID int, domain *Domain) (Domain, error)
 	Update(userID int, itemID int, domain *Domain) (Domain, error)
 	Delete(userID, itemID int) (string, error)
+	GetByID(itemID int) (Domain, error)
 	GetAllByUserID(userID int) ([]Domain, error)
-	// GetByID(userID, watchlistId int) (Domain, error)
-	// DeleteItems(userID int, itemsID int)
 }

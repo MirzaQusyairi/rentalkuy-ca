@@ -48,6 +48,16 @@ func (serv *ItemService) Delete(userID int, itemID int) (string, error) {
 	return result, nil
 }
 
+func (serv *ItemService) GetByID(itemID int) (Domain, error) {
+	result, err := serv.repository.GetByID(itemID)
+
+	if err != nil {
+		return Domain{}, err
+	}
+
+	return result, nil
+}
+
 func (serv *ItemService) GetAllByUserID(userID int) ([]Domain, error) {
 	result, _ := serv.repository.GetAllByUserID(userID)
 

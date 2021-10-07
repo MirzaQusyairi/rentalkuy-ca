@@ -70,7 +70,16 @@ func (ctrl *ItemController) Delete(c echo.Context) error {
 	}
 
 	return controller.NewSuccessResponse(c, result)
+}
 
+func (ctrl *ItemController) GetByID(c echo.Context) error {
+	itemID, _ := strconv.Atoi(c.Param("id"))
+
+	result, err := ctrl.ItemService.GetByID(itemID)
+	if err != nil {
+		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
+	return controller.NewSuccessResponse(c, response.FromDomainItem(result))
 }
 
 func (ctrl *ItemController) GetAllByUserID(c echo.Context) error {

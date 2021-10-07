@@ -63,7 +63,18 @@ func (rep *MysqlItemRepository) Delete(userID int, itemID int) (string, error) {
 	}
 
 	return "Item has been delete", nil
+}
 
+func (rep *MysqlItemRepository) GetByID(itemID int) (items.Domain, error) {
+	var item Items
+
+	result := rep.Conn.Where("id = ?", itemID).First(&item)
+
+	if result.Error != nil {
+		return items.Domain{}, result.Error
+	}
+
+	return toDomain(item), nil
 }
 
 func (rep *MysqlItemRepository) GetAllByUserID(userID int) ([]items.Domain, error) {
