@@ -17,6 +17,10 @@ import (
 	_photoController "rentalkuy-ca/controllers/photos"
 	_photoRepo "rentalkuy-ca/drivers/databases/photos"
 
+	_packetService "rentalkuy-ca/business/packets"
+	_packetController "rentalkuy-ca/controllers/packets"
+	_packetRepo "rentalkuy-ca/drivers/databases/packets"
+
 	_dbDriver "rentalkuy-ca/drivers/mysql"
 
 	_middleware "rentalkuy-ca/app/middlewares"
@@ -44,6 +48,7 @@ func dbMigrate(db *gorm.DB) {
 		&_userRepo.Users{},
 		&_itemRepo.Items{},
 		&_photoRepo.Photos{},
+		&_packetRepo.Packets{},
 	)
 }
 
@@ -78,11 +83,16 @@ func main() {
 	photoService := _photoService.NewPhotoService(photoRepo, userRepo)
 	photoCtrl := _photoController.NewPhotoController(photoService)
 
+	packetRepo := _driverFactory.NewPacketRepository(db)
+	packetService := _packetService.NewPacketService(packetRepo, userRepo)
+	packetCtrl := _packetController.NewPacketController(packetService)
+
 	routesInit := _routes.ControllerList{
-		JWTMiddleware:   configJWT.Init(),
-		UserController:  *userCtrl,
-		ItemController:  *itemCtrl,
-		PhotoController: *photoCtrl,
+		JWTMiddleware:    configJWT.Init(),
+		UserController:   *userCtrl,
+		ItemController:   *itemCtrl,
+		PhotoController:  *photoCtrl,
+		PacketController: *packetCtrl,
 	}
 
 	routesInit.RouteRegister(e)

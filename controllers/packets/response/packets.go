@@ -1,43 +1,47 @@
 package response
 
 import (
-	"rentalkuy-ca/business/photos"
+	"rentalkuy-ca/business/packets"
 	"time"
 )
 
-type CreatePhotoResponse struct {
+type CreatePacketResponse struct {
 	Message   string    `json:"message"`
 	ID        int       `json:"id:"`
 	ItemID    int       `json:"item_id:"`
-	Path      string    `json:"path"`
+	Name      string    `json:"name"`
+	Price     int       `json:"price"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func FromDomainCreatePhoto(domain photos.Domain) CreatePhotoResponse {
-	return CreatePhotoResponse{
-		Message:   "Create Photo Success",
+func FromDomainCreatePacket(domain packets.Domain) CreatePacketResponse {
+	return CreatePacketResponse{
+		Message:   "Create Packet Success",
 		ID:        domain.ID,
 		ItemID:    domain.ItemID,
-		Path:      domain.Path,
+		Name:      domain.Name,
+		Price:     domain.Price,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}
 }
 
-type PhotoResponse struct {
+type PacketResponse struct {
 	ID        int       `json:"id:"`
 	ItemID    int       `json:"item_id:"`
-	Path      string    `json:"path"`
+	Name      string    `json:"name"`
+	Price     int       `json:"price"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func FromDomainPhoto(domain photos.Domain) PhotoResponse {
-	return PhotoResponse{
+func FromDomainPacket(domain packets.Domain) PacketResponse {
+	return PacketResponse{
 		ID:        domain.ID,
 		ItemID:    domain.ItemID,
-		Path:      domain.Path,
+		Name:      domain.Name,
+		Price:     domain.Price,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}
@@ -60,10 +64,10 @@ func FromDomainPhoto(domain photos.Domain) PhotoResponse {
 // 	}
 // }
 
-func FromDomainListItem(domain []photos.Domain) []PhotoResponse {
-	var response []PhotoResponse
+func FromDomainListPacket(domain []packets.Domain) []PacketResponse {
+	var response []PacketResponse
 	for _, value := range domain {
-		response = append(response, FromDomainPhoto(value))
+		response = append(response, FromDomainPacket(value))
 	}
 	return response
 }

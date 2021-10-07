@@ -3,6 +3,7 @@ package routes
 import (
 	//middlewareApp "go-watchlist/app/middlewares"
 	"rentalkuy-ca/controllers/items"
+	"rentalkuy-ca/controllers/packets"
 	"rentalkuy-ca/controllers/photos"
 	"rentalkuy-ca/controllers/users"
 
@@ -11,10 +12,11 @@ import (
 )
 
 type ControllerList struct {
-	JWTMiddleware   middleware.JWTConfig
-	UserController  users.UserController
-	ItemController  items.ItemController
-	PhotoController photos.PhotoController
+	JWTMiddleware    middleware.JWTConfig
+	UserController   users.UserController
+	ItemController   items.ItemController
+	PhotoController  photos.PhotoController
+	PacketController packets.PacketController
 }
 
 func (cl *ControllerList) RouteRegister(e *echo.Echo) {
@@ -35,4 +37,9 @@ func (cl *ControllerList) RouteRegister(e *echo.Echo) {
 	items.DELETE("/photo/delete/:id", cl.PhotoController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/photo/:id", cl.PhotoController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/photo/all/:id", cl.PhotoController.GetAllByID, middleware.JWTWithConfig(cl.JWTMiddleware))
+
+	items.POST("/packet/insert", cl.PacketController.Create, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.DELETE("/packet/delete/:id", cl.PacketController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.GET("/packet/:id", cl.PacketController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.GET("/packet/all/:id", cl.PacketController.GetAllByID, middleware.JWTWithConfig(cl.JWTMiddleware))
 }

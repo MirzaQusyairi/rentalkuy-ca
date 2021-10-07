@@ -10,6 +10,9 @@ import (
 	photoDomain "rentalkuy-ca/business/photos"
 	photoDB "rentalkuy-ca/drivers/databases/photos"
 
+	packetDomain "rentalkuy-ca/business/packets"
+	packetDB "rentalkuy-ca/drivers/databases/packets"
+
 	"gorm.io/gorm"
 )
 
@@ -23,4 +26,8 @@ func NewItemRepository(conn *gorm.DB) itemDomain.Repository {
 
 func NewPhotoRepository(conn *gorm.DB) photoDomain.Repository {
 	return photoDB.NewMysqlPhotoRepository(conn)
+}
+
+func NewPacketRepository(conn *gorm.DB) packetDomain.Repository {
+	return packetDB.NewMysqlPacketRepository(conn)
 }
