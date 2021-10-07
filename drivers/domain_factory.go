@@ -13,6 +13,12 @@ import (
 	packetDomain "rentalkuy-ca/business/packets"
 	packetDB "rentalkuy-ca/drivers/databases/packets"
 
+	rentDomain "rentalkuy-ca/business/rents"
+	rentDB "rentalkuy-ca/drivers/databases/rents"
+
+	geolocationDomain "rentalkuy-ca/business/geolocation"
+	ipAPI "rentalkuy-ca/drivers/thirdparties/ipapi"
+
 	"gorm.io/gorm"
 )
 
@@ -30,4 +36,12 @@ func NewPhotoRepository(conn *gorm.DB) photoDomain.Repository {
 
 func NewPacketRepository(conn *gorm.DB) packetDomain.Repository {
 	return packetDB.NewMysqlPacketRepository(conn)
+}
+
+func NewRentRepository(conn *gorm.DB) rentDomain.Repository {
+	return rentDB.NewMysqlRentRepository(conn)
+}
+
+func NewGeolocationRepository() geolocationDomain.Repository {
+	return ipAPI.NewIpAPI()
 }

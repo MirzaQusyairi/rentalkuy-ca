@@ -24,13 +24,14 @@ func NewItemController(service items.Service) *ItemController {
 
 func (ctrl *ItemController) Create(c echo.Context) error {
 	req := request.Items{}
+	ip := c.RealIP()
 
 	if err := c.Bind(&req); err != nil {
 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
 	}
 
 	user := middlewares.GetUser(c) //get id from jwt
-	data, err := ctrl.ItemService.Create(user.ID, req.ToDomain())
+	data, err := ctrl.ItemService.Create(user.ID, ip, req.ToDomain())
 
 	if err != nil {
 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)

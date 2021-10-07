@@ -21,6 +21,10 @@ import (
 	_packetController "rentalkuy-ca/controllers/packets"
 	_packetRepo "rentalkuy-ca/drivers/databases/packets"
 
+	_rentService "rentalkuy-ca/business/rents"
+	_rentController "rentalkuy-ca/controllers/rents"
+	_rentRepo "rentalkuy-ca/drivers/databases/rents"
+
 	_dbDriver "rentalkuy-ca/drivers/mysql"
 
 	_middleware "rentalkuy-ca/app/middlewares"
@@ -49,6 +53,7 @@ func dbMigrate(db *gorm.DB) {
 		&_itemRepo.Items{},
 		&_photoRepo.Photos{},
 		&_packetRepo.Packets{},
+		&_rentRepo.Rents{},
 	)
 }
 
@@ -70,13 +75,15 @@ func main() {
 	}
 
 	e := echo.New()
+	e.IPExtractor = echo.ExtractIPDirect()
+	geoRepo := _driverFactory.NewGeolocationRepository()
 
 	userRepo := _driverFactory.NewUserRepository(db)
 	userService := _userService.NewUserService(userRepo, 10, &configJWT)
 	userCtrl := _userController.NewUserController(userService)
 
 	itemRepo := _driverFactory.NewItemRepository(db)
-	itemService := _itemService.NewItemService(itemRepo, userRepo)
+	itemService := _itemService.NewItemService(itemRepo, userRepo, geoRepo)
 	itemCtrl := _itemController.NewItemController(itemService)
 
 	photoRepo := _driverFactory.NewPhotoRepository(db)
@@ -87,12 +94,17 @@ func main() {
 	packetService := _packetService.NewPacketService(packetRepo, userRepo)
 	packetCtrl := _packetController.NewPacketController(packetService)
 
+	rentRepo := _driverFactory.NewRentRepository(db)
+	rentService := _rentService.NewRentService(rentRepo, userRepo)
+	rentCtrl := _rentController.NewRentController(rentService)
+
 	routesInit := _routes.ControllerList{
 		JWTMiddleware:    configJWT.Init(),
 		UserController:   *userCtrl,
 		ItemController:   *itemCtrl,
 		PhotoController:  *photoCtrl,
 		PacketController: *packetCtrl,
+		RentController:   *rentCtrl,
 	}
 
 	routesInit.RouteRegister(e)

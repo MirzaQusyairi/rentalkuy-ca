@@ -69,7 +69,7 @@ func FromDomainItem(domain items.Domain) ItemResponse {
 
 func FromDomainUpdateItem(domain items.Domain) CreateItemResponse {
 	return CreateItemResponse{
-		Message:     "Update Event Success",
+		Message:     "Update Item Success",
 		ID:          domain.ID,
 		Name:        domain.Name,
 		UserID:      domain.UserID,

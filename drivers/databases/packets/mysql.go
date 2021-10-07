@@ -62,7 +62,7 @@ func (rep *MysqlPacketRepository) Delete(ID int) (string, error) {
 		return "", business.ErrNotFound
 	}
 
-	return "Photo has been delete", nil
+	return "Packet has been delete", nil
 }
 
 func (rep *MysqlPacketRepository) GetByID(ID int) (packets.Domain, error) {

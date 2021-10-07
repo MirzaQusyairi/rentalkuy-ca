@@ -17,7 +17,7 @@ func NewMysqlItemRepository(conn *gorm.DB) items.Repository {
 	}
 }
 
-func (rep *MysqlItemRepository) Create(userID int, domain *items.Domain) (items.Domain, error) {
+func (rep *MysqlItemRepository) Create(userID int, ip string, domain *items.Domain) (items.Domain, error) {
 	item := fromDomain(*domain)
 	item.UserID = userID
 	result := rep.Conn.Create(&item)

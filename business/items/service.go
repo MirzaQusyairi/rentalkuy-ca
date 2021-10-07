@@ -2,23 +2,33 @@ package items
 
 import (
 	"rentalkuy-ca/business"
+	"rentalkuy-ca/business/geolocation"
 	"rentalkuy-ca/business/users"
 )
 
 type ItemService struct {
 	repository     Repository
 	userRepository users.Repository
+	geoRepository  geolocation.Repository
 }
 
-func NewItemService(repo Repository, userRepo users.Repository) Service {
+func NewItemService(repo Repository, userRepo users.Repository, geoRepo geolocation.Repository) Service {
 	return &ItemService{
 		repository:     repo,
 		userRepository: userRepo,
+		geoRepository:  geoRepo,
 	}
 }
 
-func (serv *ItemService) Create(userID int, domain *Domain) (Domain, error) {
-	result, err := serv.repository.Create(userID, domain)
+func (serv *ItemService) Create(userID int, ip string, domain *Domain) (Domain, error) {
+	location, err := serv.geoRepository.GetLocationByIP(ip)
+	if err != nil {
+		return Domain{}, business.ErrInternalServer
+	}
+
+	domain.City = location.City
+
+	result, err := serv.repository.Create(userID, ip, domain)
 
 	if err != nil {
 		return Domain{}, err
