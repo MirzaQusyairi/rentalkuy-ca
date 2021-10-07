@@ -11,4 +11,5 @@ var (
 	ErrEmailEmpty     = errors.New("email empty")
 	ErrPasswordEmpty  = errors.New("password empty")
 	ErrWrongPassword  = errors.New("password wrong")
+	ErrUnathorized    = errors.New("unauthorized")
 )

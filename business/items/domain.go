@@ -11,21 +11,27 @@ type Domain struct {
 	CategoryID  int
 	Description string
 	QTY         int
-	Status      bool
+	City        string
+	Photo       string
+	Status      string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
 
 type Service interface {
 	Create(userID int, domain *Domain) (Domain, error)
-	// GetAllByUserID(userID int) ([]Domain, error)
+	Update(userID int, itemID int, domain *Domain) (Domain, error)
+	Delete(userID, itemID int) (string, error)
+	GetAllByUserID(userID int) ([]Domain, error)
 	// GetByID(userID, id int) (Domain, error)
 	// DeleteItems(userID int, itemsID int)
 }
 
 type Repository interface {
 	Create(userID int, domain *Domain) (Domain, error)
-	// GetAllByUserID(userID int) ([]Domain, error)
+	Update(userID int, itemID int, domain *Domain) (Domain, error)
+	Delete(userID, itemID int) (string, error)
+	GetAllByUserID(userID int) ([]Domain, error)
 	// GetByID(userID, watchlistId int) (Domain, error)
 	// DeleteItems(userID int, itemsID int)
 }

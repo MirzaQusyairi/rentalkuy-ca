@@ -26,4 +26,5 @@ type Service interface {
 type Repository interface {
 	Register(domain *Domain) (Domain, error)
 	Login(username string, password string) (Domain, error)
+	//	GetNameByUserID(id int) string
 }

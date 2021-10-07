@@ -66,7 +66,7 @@ func main() {
 	userCtrl := _userController.NewUserController(userService)
 
 	itemRepo := _driverFactory.NewItemRepository(db)
-	itemService := _itemService.NewItemService(itemRepo)
+	itemService := _itemService.NewItemService(itemRepo, userRepo)
 	itemCtrl := _itemController.NewItemController(itemService)
 
 	routesInit := _routes.ControllerList{
