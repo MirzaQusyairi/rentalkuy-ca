@@ -13,6 +13,18 @@ import (
 	_itemController "rentalkuy-ca/controllers/items"
 	_itemRepo "rentalkuy-ca/drivers/databases/items"
 
+	_photoService "rentalkuy-ca/business/photos"
+	_photoController "rentalkuy-ca/controllers/photos"
+	_photoRepo "rentalkuy-ca/drivers/databases/photos"
+
+	_packetService "rentalkuy-ca/business/packets"
+	_packetController "rentalkuy-ca/controllers/packets"
+	_packetRepo "rentalkuy-ca/drivers/databases/packets"
+
+	_rentService "rentalkuy-ca/business/rents"
+	_rentController "rentalkuy-ca/controllers/rents"
+	_rentRepo "rentalkuy-ca/drivers/databases/rents"
+
 	_dbDriver "rentalkuy-ca/drivers/mysql"
 
 	_middleware "rentalkuy-ca/app/middlewares"
@@ -39,6 +51,9 @@ func dbMigrate(db *gorm.DB) {
 	db.AutoMigrate(
 		&_userRepo.Users{},
 		&_itemRepo.Items{},
+		&_photoRepo.Photos{},
+		&_packetRepo.Packets{},
+		&_rentRepo.Rents{},
 	)
 }
 
@@ -60,22 +75,40 @@ func main() {
 	}
 
 	e := echo.New()
+	e.IPExtractor = echo.ExtractIPDirect()
+	geoRepo := _driverFactory.NewGeolocationRepository()
 
 	userRepo := _driverFactory.NewUserRepository(db)
 	userService := _userService.NewUserService(userRepo, 10, &configJWT)
 	userCtrl := _userController.NewUserController(userService)
 
 	itemRepo := _driverFactory.NewItemRepository(db)
-	itemService := _itemService.NewItemService(itemRepo)
+	itemService := _itemService.NewItemService(itemRepo, userRepo, geoRepo)
 	itemCtrl := _itemController.NewItemController(itemService)
 
+	photoRepo := _driverFactory.NewPhotoRepository(db)
+	photoService := _photoService.NewPhotoService(photoRepo, userRepo)
+	photoCtrl := _photoController.NewPhotoController(photoService)
+
+	packetRepo := _driverFactory.NewPacketRepository(db)
+	packetService := _packetService.NewPacketService(packetRepo, userRepo)
+	packetCtrl := _packetController.NewPacketController(packetService)
+
+	rentRepo := _driverFactory.NewRentRepository(db)
+	rentService := _rentService.NewRentService(rentRepo, userRepo)
+	rentCtrl := _rentController.NewRentController(rentService)
+
 	routesInit := _routes.ControllerList{
-		JWTMiddleware:  configJWT.Init(),
-		UserController: *userCtrl,
-		ItemController: *itemCtrl,
+		JWTMiddleware:    configJWT.Init(),
+		UserController:   *userCtrl,
+		ItemController:   *itemCtrl,
+		PhotoController:  *photoCtrl,
+		PacketController: *packetCtrl,
+		RentController:   *rentCtrl,
 	}
 
 	routesInit.RouteRegister(e)
+	_middleware.Logger(e)
 
 	log.Fatal(e.Start(viper.GetString("server.address")))
 }

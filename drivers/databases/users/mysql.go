@@ -37,3 +37,12 @@ func (rep *MysqlUserRepository) Register(domain *users.Domain) (users.Domain, er
 
 	return toDomain(user), nil
 }
+
+// func (rep *MysqlUserRepository) GetNameByUserID(id int) string {
+// 	rec := Users{}
+// 	err := rep.Conn.First(&rec, id).Error
+// 	if err != nil {
+// 		return ""
+// 	}
+// 	return rec.Name
+// }
