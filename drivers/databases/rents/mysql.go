@@ -30,24 +30,6 @@ func (rep *MysqlRentRepository) Create(userID int, domain *rents.Domain) (rents.
 	return toDomain(rent), nil
 }
 
-// func (rep *MysqlRentRepository) Update(userID int, itemID int, domain *items.Domain) (items.Domain, error) {
-// 	itemUpdate := fromDomain(*domain)
-
-// 	find := rep.Conn.Where("id = ?", itemID).First(&itemUpdate).Error
-// 	if find != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
-
-// 	itemUpdate.ID = itemID
-// 	result := rep.Conn.Where("user_id = ?", userID).Where("id = ?", itemID).Updates(&itemUpdate)
-
-// 	if result.Error != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
-
-// 	return toDomainUpdate(itemUpdate), nil
-// }
-
 func (rep *MysqlRentRepository) Delete(userID int, rentID int) (string, error) {
 	rec := Rents{}
 
@@ -85,12 +67,5 @@ func (rep *MysqlRentRepository) GetAllByUserID(userID int) ([]rents.Domain, erro
 		return []rents.Domain{}, err
 	}
 
-	// result := rep.Conn.Find(&item)
-
-	// if result.Error != nil {
-	// 	return []items.Domain{}, result.Error
-	// }
-
 	return toDomainList(rent), nil
-
 }

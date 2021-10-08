@@ -27,18 +27,7 @@ func (serv *PhotoService) Create(domain *Domain) (Domain, error) {
 	return result, nil
 }
 
-// func (serv *PhotoService) Update(userID int, ID int, domain *Domain) (Domain, error) {
-// 	result, err := serv.repository.Update(userID, ID, domain)
-
-// 	if err != nil {
-// 		return Domain{}, err
-// 	}
-
-// 	return result, nil
-// }
-
 func (serv *PhotoService) Delete(ID int) (string, error) {
-
 	result, err := serv.repository.Delete(ID)
 
 	if err != nil {

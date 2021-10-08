@@ -29,23 +29,18 @@ func (rep *MysqlPacketRepository) Create(domain *packets.Domain) (packets.Domain
 	return toDomain(photo), nil
 }
 
-// func (rep *MysqlPhotoRepository) Update(userID int, ID int, domain *items.Domain) (photos.Domain, error) {
-// 	photoUpdate := fromDomain(*domain)
+func (rep *MysqlPacketRepository) Update(userID int, ID int, domain *packets.Domain) (packets.Domain, error) {
+	packetUpdate := fromDomain(*domain)
 
-// 	find := rep.Conn.Where("id = ?", itemID).First(&itemUpdate).Error
-// 	if find != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
+	packetUpdate.ID = ID
+	result := rep.Conn.Where("id = ?", ID).Updates(&packetUpdate)
 
-// 	itemUpdate.ID = itemID
-// 	result := rep.Conn.Where("user_id = ?", userID).Where("id = ?", itemID).Updates(&itemUpdate)
+	if result.Error != nil {
+		return packets.Domain{}, business.ErrNotFound
+	}
 
-// 	if result.Error != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
-
-// 	return toDomainUpdate(itemUpdate), nil
-// }
+	return toDomainUpdate(packetUpdate), nil
+}
 
 func (rep *MysqlPacketRepository) Delete(ID int) (string, error) {
 	rec := Packets{}

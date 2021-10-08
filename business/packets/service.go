@@ -27,15 +27,15 @@ func (serv *PacketService) Create(domain *Domain) (Domain, error) {
 	return result, nil
 }
 
-// func (serv *PhotoService) Update(userID int, ID int, domain *Domain) (Domain, error) {
-// 	result, err := serv.repository.Update(userID, ID, domain)
+func (serv *PacketService) Update(userID int, ID int, domain *Domain) (Domain, error) {
+	result, err := serv.repository.Update(userID, ID, domain)
 
-// 	if err != nil {
-// 		return Domain{}, err
-// 	}
+	if err != nil {
+		return Domain{}, err
+	}
 
-// 	return result, nil
-// }
+	return result, nil
+}
 
 func (serv *PacketService) Delete(ID int) (string, error) {
 

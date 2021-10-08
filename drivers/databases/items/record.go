@@ -62,7 +62,6 @@ func toDomainUpdate(item Items) items.Domain {
 		CategoryID:  item.CategoryID,
 		Description: item.Description,
 		QTY:         item.QTY,
-		City:        item.City,
 		Photo:       item.Photo,
 		Status:      item.Status,
 		CreatedAt:   item.CreatedAt,

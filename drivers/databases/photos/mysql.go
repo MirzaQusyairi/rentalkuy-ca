@@ -29,24 +29,6 @@ func (rep *MysqlPhotoRepository) Create(domain *photos.Domain) (photos.Domain, e
 	return toDomain(photo), nil
 }
 
-// func (rep *MysqlPhotoRepository) Update(userID int, ID int, domain *items.Domain) (photos.Domain, error) {
-// 	photoUpdate := fromDomain(*domain)
-
-// 	find := rep.Conn.Where("id = ?", itemID).First(&itemUpdate).Error
-// 	if find != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
-
-// 	itemUpdate.ID = itemID
-// 	result := rep.Conn.Where("user_id = ?", userID).Where("id = ?", itemID).Updates(&itemUpdate)
-
-// 	if result.Error != nil {
-// 		return items.Domain{}, business.ErrNotFound
-// 	}
-
-// 	return toDomainUpdate(itemUpdate), nil
-// }
-
 func (rep *MysqlPhotoRepository) Delete(ID int) (string, error) {
 	rec := Photos{}
 

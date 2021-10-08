@@ -33,11 +33,6 @@ func (rep *MysqlItemRepository) Create(userID int, ip string, domain *items.Doma
 func (rep *MysqlItemRepository) Update(userID int, itemID int, domain *items.Domain) (items.Domain, error) {
 	itemUpdate := fromDomain(*domain)
 
-	find := rep.Conn.Where("id = ?", itemID).First(&itemUpdate).Error
-	if find != nil {
-		return items.Domain{}, business.ErrNotFound
-	}
-
 	itemUpdate.ID = itemID
 	result := rep.Conn.Where("user_id = ?", userID).Where("id = ?", itemID).Updates(&itemUpdate)
 
@@ -85,22 +80,11 @@ func (rep *MysqlItemRepository) GetAllByUserID(userID int) ([]items.Domain, erro
 		return []items.Domain{}, err
 	}
 
-	// result := rep.Conn.Find(&item)
-
-	// if result.Error != nil {
-	// 	return []items.Domain{}, result.Error
-	// }
-
 	return toDomainList(item), nil
-
 }
 
 func (rep *MysqlItemRepository) GetAll() ([]items.Domain, error) {
 	var item []Items
-
-	// if err := rep.Conn.Table("items").Joins("left join users on users.id = items.user_id").Find(&item).Error; err != nil {
-	// 	return []items.Domain{}, err
-	// }
 
 	result := rep.Conn.Find(&item)
 

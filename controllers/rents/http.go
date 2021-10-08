@@ -40,25 +40,6 @@ func (ctrl *RentController) Create(c echo.Context) error {
 
 }
 
-// func (ctrl *RentController) Update(c echo.Context) error {
-// 	req := request.Rents{}
-
-// 	if err := c.Bind(&req); err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
-
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	user := middlewares.GetUser(c)
-
-// 	result, err := ctrl.RentService.Update(user.ID, id, req.ToDomain())
-
-// 	if err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
-
-// 	return controller.NewSuccessResponse(c, response.FromDomainUpdateRent(result))
-// }
-
 func (ctrl *RentController) Delete(c echo.Context) error {
 	userID := middlewares.GetUser(c)
 	deletedId, _ := strconv.Atoi(c.Param("id"))

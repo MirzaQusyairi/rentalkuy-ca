@@ -27,16 +27,6 @@ func (serv *RentService) Create(userID int, domain *Domain) (Domain, error) {
 	return result, nil
 }
 
-// func (serv *RentService) Update(userID int, rentID int, domain *Domain) (Domain, error) {
-// 	result, err := serv.repository.Update(userID, rentID, domain)
-
-// 	if err != nil {
-// 		return Domain{}, err
-// 	}
-
-// 	return result, nil
-// }
-
 func (serv *RentService) Delete(userID int, rentID int) (string, error) {
 	result, err := serv.repository.Delete(userID, rentID)
 
@@ -63,10 +53,6 @@ func (serv *RentService) GetAllByUserID(userID int) ([]Domain, error) {
 	if result == nil {
 		return nil, business.ErrNotFound
 	}
-
-	// for i, val := range result {
-	// 	result[i].UserName = serv.userRepository.GetNameByUserID(val.UserID)
-	// }
 
 	return result, nil
 }
