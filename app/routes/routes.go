@@ -1,7 +1,7 @@
 package routes
 
 import (
-	//middlewareApp "go-watchlist/app/middlewares"
+	//middlewareApp "rentalkuy-ca/app/middlewares"
 	"rentalkuy-ca/controllers/items"
 	"rentalkuy-ca/controllers/packets"
 	"rentalkuy-ca/controllers/photos"
@@ -34,19 +34,20 @@ func (cl *ControllerList) RouteRegister(e *echo.Echo) {
 	items.DELETE("/delete/:id", cl.ItemController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/:id", cl.ItemController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/all", cl.ItemController.GetAllByUserID, middleware.JWTWithConfig(cl.JWTMiddleware))
-	items.GET("/available", cl.ItemController.GetAll)
+	items.GET("/available", cl.ItemController.GetAll) //public
 
 	//photo
 	items.POST("/photo/insert", cl.PhotoController.Create, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.DELETE("/photo/delete/:id", cl.PhotoController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
-	items.GET("/photo/:id", cl.PhotoController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
-	items.GET("/photo/all/:id", cl.PhotoController.GetAllByID, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.GET("/photo/:id", cl.PhotoController.GetByID)        //public
+	items.GET("/photo/all/:id", cl.PhotoController.GetAllByID) //public
 
 	//packet
 	items.POST("/packet/insert", cl.PacketController.Create, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.PUT("/packet/update/:id", cl.PacketController.Update, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.DELETE("/packet/delete/:id", cl.PacketController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
-	items.GET("/packet/:id", cl.PacketController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
-	items.GET("/packet/all/:id", cl.PacketController.GetAllByID, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.GET("/packet/:id", cl.PacketController.GetByID)        //public
+	items.GET("/packet/all/:id", cl.PacketController.GetAllByID) //public
 
 	//rent
 	rents := e.Group("rents")

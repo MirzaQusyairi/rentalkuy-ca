@@ -39,15 +39,16 @@ func fromDomain(domain packets.Domain) Packets {
 	}
 }
 
-// func toDomainUpdate(photo Photos) photos.Domain {
-// 	return photos.Domain{
-// 		ID:        photo.ID,
-// 		ItemID:    photo.ItemID,
-// 		Path:      photo.Path,
-// 		CreatedAt: photo.CreatedAt,
-// 		UpdatedAt: photo.UpdatedAt,
-// 	}
-// }
+func toDomainUpdate(packet Packets) packets.Domain {
+	return packets.Domain{
+		ID:        packet.ID,
+		ItemID:    packet.ItemID,
+		Name:      packet.Name,
+		Price:     packet.Price,
+		CreatedAt: packet.CreatedAt,
+		UpdatedAt: packet.UpdatedAt,
+	}
+}
 
 func toDomainList(data []Packets) []packets.Domain {
 	result := []packets.Domain{}

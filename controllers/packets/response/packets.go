@@ -47,22 +47,17 @@ func FromDomainPacket(domain packets.Domain) PacketResponse {
 	}
 }
 
-// func FromDomainUpdatePhoto(domain items.Domain) CreateItemResponse {
-// 	return CreateItemResponse{
-// 		Message:     "Update Event Success",
-// 		ID:          domain.ID,
-// 		Name:        domain.Name,
-// 		UserID:      domain.UserID,
-// 		CategoryID:  domain.CategoryID,
-// 		Description: domain.Description,
-// 		QTY:         domain.QTY,
-// 		City:        domain.City,
-// 		Photo:       domain.Photo,
-// 		Status:      domain.Status,
-// 		CreatedAt:   domain.CreatedAt,
-// 		UpdatedAt:   domain.UpdatedAt,
-// 	}
-// }
+func FromDomainUpdatePacket(domain packets.Domain) CreatePacketResponse {
+	return CreatePacketResponse{
+		Message:   "Update Packet Success",
+		ID:        domain.ID,
+		ItemID:    domain.ItemID,
+		Name:      domain.Name,
+		Price:     domain.Price,
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
+	}
+}
 
 func FromDomainListPacket(domain []packets.Domain) []PacketResponse {
 	var response []PacketResponse

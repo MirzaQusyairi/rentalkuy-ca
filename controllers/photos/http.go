@@ -38,27 +38,7 @@ func (ctrl *PhotoController) Create(c echo.Context) error {
 
 }
 
-// func (ctrl *ItemController) Update(c echo.Context) error {
-// 	req := request.Items{}
-
-// 	if err := c.Bind(&req); err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
-
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	user := middlewares.GetUser(c)
-
-// 	result, err := ctrl.ItemService.Update(user.ID, id, req.ToDomain())
-
-// 	if err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
-
-// 	return controller.NewSuccessResponse(c, response.FromDomainUpdateItem(result))
-// }
-
 func (ctrl *PhotoController) Delete(c echo.Context) error {
-	//	userID := middlewares.GetUser(c)
 	deletedId, _ := strconv.Atoi(c.Param("id"))
 
 	result, err := ctrl.PhotoService.Delete(deletedId)

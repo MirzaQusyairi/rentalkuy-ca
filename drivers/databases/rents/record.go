@@ -57,23 +57,6 @@ func fromDomain(domain rents.Domain) Rents {
 	}
 }
 
-func toDomainUpdate(rent Rents) rents.Domain {
-	return rents.Domain{
-		ID:         rent.ID,
-		UserID:     rent.UserID,
-		ItemID:     rent.ItemID,
-		QTY:        rent.QTY,
-		PacketID:   rent.PacketID,
-		Date:       rent.Date,
-		Duration:   rent.Duration,
-		TotalQTY:   rent.TotalQTY,
-		TotalPrice: rent.TotalPrice,
-		Status:     rent.Status,
-		CreatedAt:  rent.CreatedAt,
-		UpdatedAt:  rent.UpdatedAt,
-	}
-}
-
 func toDomainList(data []Rents) []rents.Domain {
 	result := []rents.Domain{}
 

@@ -14,7 +14,6 @@ type Domain struct {
 
 type Service interface {
 	Create(domain *Domain) (Domain, error)
-	//Update(userID int, ID int, domain *Domain) (Domain, error)
 	Delete(ID int) (string, error)
 	GetByID(ID int) (Domain, error)
 	GetAllByID(ID int) ([]Domain, error)
@@ -22,7 +21,6 @@ type Service interface {
 
 type Repository interface {
 	Create(domain *Domain) (Domain, error)
-	//Update(userID int, ID int, domain *Domain) (Domain, error)
 	Delete(ID int) (string, error)
 	GetByID(ID int) (Domain, error)
 	GetAllByID(ID int) ([]Domain, error)

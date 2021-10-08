@@ -36,16 +36,6 @@ func fromDomain(domain photos.Domain) Photos {
 	}
 }
 
-// func toDomainUpdate(photo Photos) photos.Domain {
-// 	return photos.Domain{
-// 		ID:        photo.ID,
-// 		ItemID:    photo.ItemID,
-// 		Path:      photo.Path,
-// 		CreatedAt: photo.CreatedAt,
-// 		UpdatedAt: photo.UpdatedAt,
-// 	}
-// }
-
 func toDomainList(data []Photos) []photos.Domain {
 	result := []photos.Domain{}
 

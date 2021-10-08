@@ -48,7 +48,6 @@ func (serv *ItemService) Update(userID int, itemID int, domain *Domain) (Domain,
 }
 
 func (serv *ItemService) Delete(userID int, itemID int) (string, error) {
-
 	result, err := serv.repository.Delete(userID, itemID)
 
 	if err != nil {
@@ -74,10 +73,6 @@ func (serv *ItemService) GetAllByUserID(userID int) ([]Domain, error) {
 	if result == nil {
 		return nil, business.ErrNotFound
 	}
-
-	// for i, val := range result {
-	// 	result[i].UserName = serv.userRepository.GetNameByUserID(val.UserID)
-	// }
 
 	return result, nil
 }

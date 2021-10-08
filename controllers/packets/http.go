@@ -2,6 +2,7 @@ package packets
 
 import (
 	"net/http"
+	"rentalkuy-ca/app/middlewares"
 	"rentalkuy-ca/business/packets"
 	controller "rentalkuy-ca/controllers"
 	"rentalkuy-ca/controllers/packets/request"
@@ -38,27 +39,26 @@ func (ctrl *PacketController) Create(c echo.Context) error {
 
 }
 
-// func (ctrl *ItemController) Update(c echo.Context) error {
-// 	req := request.Items{}
+func (ctrl *PacketController) Update(c echo.Context) error {
+	req := request.Packets{}
 
-// 	if err := c.Bind(&req); err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
+	if err := c.Bind(&req); err != nil {
+		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
 
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	user := middlewares.GetUser(c)
+	id, _ := strconv.Atoi(c.Param("id"))
+	user := middlewares.GetUser(c)
 
-// 	result, err := ctrl.ItemService.Update(user.ID, id, req.ToDomain())
+	result, err := ctrl.PacketService.Update(user.ID, id, req.ToDomain())
 
-// 	if err != nil {
-// 		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
-// 	}
+	if err != nil {
+		return controller.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
 
-// 	return controller.NewSuccessResponse(c, response.FromDomainUpdateItem(result))
-// }
+	return controller.NewSuccessResponse(c, response.FromDomainUpdatePacket(result))
+}
 
 func (ctrl *PacketController) Delete(c echo.Context) error {
-	//	userID := middlewares.GetUser(c)
 	deletedId, _ := strconv.Atoi(c.Param("id"))
 
 	result, err := ctrl.PacketService.Delete(deletedId)

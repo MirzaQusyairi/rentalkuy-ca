@@ -43,23 +43,6 @@ func FromDomainPhoto(domain photos.Domain) PhotoResponse {
 	}
 }
 
-// func FromDomainUpdatePhoto(domain items.Domain) CreateItemResponse {
-// 	return CreateItemResponse{
-// 		Message:     "Update Event Success",
-// 		ID:          domain.ID,
-// 		Name:        domain.Name,
-// 		UserID:      domain.UserID,
-// 		CategoryID:  domain.CategoryID,
-// 		Description: domain.Description,
-// 		QTY:         domain.QTY,
-// 		City:        domain.City,
-// 		Photo:       domain.Photo,
-// 		Status:      domain.Status,
-// 		CreatedAt:   domain.CreatedAt,
-// 		UpdatedAt:   domain.UpdatedAt,
-// 	}
-// }
-
 func FromDomainListItem(domain []photos.Domain) []PhotoResponse {
 	var response []PhotoResponse
 	for _, value := range domain {

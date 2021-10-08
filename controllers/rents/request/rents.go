@@ -10,7 +10,6 @@ type Rents struct {
 	Duration   int    `json:"duration"`
 	TotalQTY   int    `json:"total_qty"`
 	TotalPrice int    `json:"total_price"`
-	//Status     string `json:"status"`
 }
 
 func (req *Rents) ToDomain() *rents.Domain {
@@ -22,6 +21,5 @@ func (req *Rents) ToDomain() *rents.Domain {
 		Duration:   req.Duration,
 		TotalQTY:   req.TotalQTY,
 		TotalPrice: req.TotalPrice,
-		//Status:     req.Status,
 	}
 }
