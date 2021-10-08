@@ -108,6 +108,7 @@ func main() {
 	}
 
 	routesInit.RouteRegister(e)
+	_middleware.Logger(e)
 
 	log.Fatal(e.Start(viper.GetString("server.address")))
 }

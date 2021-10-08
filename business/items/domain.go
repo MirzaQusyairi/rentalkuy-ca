@@ -24,6 +24,7 @@ type Service interface {
 	Delete(userID, itemID int) (string, error)
 	GetByID(itemID int) (Domain, error)
 	GetAllByUserID(userID int) ([]Domain, error)
+	GetAll() ([]Domain, error)
 }
 
 type Repository interface {
@@ -32,4 +33,5 @@ type Repository interface {
 	Delete(userID, itemID int) (string, error)
 	GetByID(itemID int) (Domain, error)
 	GetAllByUserID(userID int) ([]Domain, error)
+	GetAll() ([]Domain, error)
 }

@@ -34,6 +34,7 @@ func (cl *ControllerList) RouteRegister(e *echo.Echo) {
 	items.DELETE("/delete/:id", cl.ItemController.Delete, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/:id", cl.ItemController.GetByID, middleware.JWTWithConfig(cl.JWTMiddleware))
 	items.GET("/all", cl.ItemController.GetAllByUserID, middleware.JWTWithConfig(cl.JWTMiddleware))
+	items.GET("/available", cl.ItemController.GetAll)
 
 	//photo
 	items.POST("/photo/insert", cl.PhotoController.Create, middleware.JWTWithConfig(cl.JWTMiddleware))

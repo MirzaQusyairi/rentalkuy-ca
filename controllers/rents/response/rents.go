@@ -12,6 +12,7 @@ type CreateRentResponse struct {
 	ItemID     int       `json:"item_id"`
 	QTY        int       `json:"qty"`
 	PacketID   int       `json:"packet_id"`
+	Date       string    `json:"date"`
 	Duration   int       `json:"duration"`
 	TotalQTY   int       `json:"total_qty"`
 	TotalPrice int       `json:"total_price"`
@@ -28,6 +29,7 @@ func FromDomainCreateRent(domain rents.Domain) CreateRentResponse {
 		ItemID:     domain.ItemID,
 		QTY:        domain.QTY,
 		PacketID:   domain.PacketID,
+		Date:       domain.Date,
 		Duration:   domain.Duration,
 		TotalQTY:   domain.TotalQTY,
 		TotalPrice: domain.TotalPrice,
@@ -43,6 +45,7 @@ type RentResponse struct {
 	ItemID     int       `json:"item_id"`
 	QTY        int       `json:"qty"`
 	PacketID   int       `json:"packet_id"`
+	Date       string    `json:"date"`
 	Duration   int       `json:"duration"`
 	TotalQTY   int       `json:"total_qty"`
 	TotalPrice int       `json:"total_price"`
@@ -58,6 +61,7 @@ func FromDomainItem(domain rents.Domain) RentResponse {
 		ItemID:     domain.ItemID,
 		QTY:        domain.QTY,
 		PacketID:   domain.PacketID,
+		Date:       domain.Date,
 		Duration:   domain.Duration,
 		TotalQTY:   domain.TotalQTY,
 		TotalPrice: domain.TotalPrice,
@@ -75,6 +79,7 @@ func FromDomainUpdateItem(domain rents.Domain) CreateRentResponse {
 		ItemID:     domain.ItemID,
 		QTY:        domain.QTY,
 		PacketID:   domain.PacketID,
+		Date:       domain.Date,
 		Duration:   domain.Duration,
 		TotalQTY:   domain.TotalQTY,
 		TotalPrice: domain.TotalPrice,

@@ -81,3 +81,13 @@ func (serv *ItemService) GetAllByUserID(userID int) ([]Domain, error) {
 
 	return result, nil
 }
+
+func (serv *ItemService) GetAll() ([]Domain, error) {
+	result, _ := serv.repository.GetAll()
+
+	if result == nil {
+		return nil, business.ErrNotFound
+	}
+
+	return result, nil
+}

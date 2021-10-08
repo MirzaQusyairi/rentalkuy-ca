@@ -14,7 +14,7 @@ type Rents struct {
 	ItemID     int
 	QTY        int
 	PacketID   int
-	Date       time.Time
+	Date       string
 	Duration   int
 	TotalQTY   int
 	TotalPrice int

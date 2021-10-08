@@ -8,8 +8,8 @@ type Items struct {
 	Description string `json:"desc"`
 	QTY         int    `json:"qty"`
 	//City        string `json:"city"`
-	Photo  string `json:"photo"`
-	Status string `json:"status"`
+	Photo string `json:"photo"`
+	//Status string `json:"status"`
 }
 
 func (req *Items) ToDomain() *items.Domain {
@@ -19,7 +19,7 @@ func (req *Items) ToDomain() *items.Domain {
 		Description: req.Description,
 		QTY:         req.QTY,
 		//	City:        req.City,
-		Photo:  req.Photo,
-		Status: req.Status,
+		Photo: req.Photo,
+		//Status: req.Status,
 	}
 }

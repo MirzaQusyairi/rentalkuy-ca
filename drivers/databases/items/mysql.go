@@ -20,6 +20,7 @@ func NewMysqlItemRepository(conn *gorm.DB) items.Repository {
 func (rep *MysqlItemRepository) Create(userID int, ip string, domain *items.Domain) (items.Domain, error) {
 	item := fromDomain(*domain)
 	item.UserID = userID
+	item.Status = "available"
 	result := rep.Conn.Create(&item)
 
 	if result.Error != nil {
@@ -89,6 +90,23 @@ func (rep *MysqlItemRepository) GetAllByUserID(userID int) ([]items.Domain, erro
 	// if result.Error != nil {
 	// 	return []items.Domain{}, result.Error
 	// }
+
+	return toDomainList(item), nil
+
+}
+
+func (rep *MysqlItemRepository) GetAll() ([]items.Domain, error) {
+	var item []Items
+
+	// if err := rep.Conn.Table("items").Joins("left join users on users.id = items.user_id").Find(&item).Error; err != nil {
+	// 	return []items.Domain{}, err
+	// }
+
+	result := rep.Conn.Find(&item)
+
+	if result.Error != nil {
+		return []items.Domain{}, result.Error
+	}
 
 	return toDomainList(item), nil
 

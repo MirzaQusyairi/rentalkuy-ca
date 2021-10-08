@@ -93,3 +93,12 @@ func (ctrl *ItemController) GetAllByUserID(c echo.Context) error {
 
 	return controller.NewSuccessResponse(c, response.FromDomainListItem(data))
 }
+
+func (ctrl *ItemController) GetAll(c echo.Context) error {
+	data, err := ctrl.ItemService.GetAll()
+	if err != nil {
+		return controller.NewErrorResponse(c, http.StatusNotFound, err)
+	}
+
+	return controller.NewSuccessResponse(c, response.FromDomainListItem(data))
+}

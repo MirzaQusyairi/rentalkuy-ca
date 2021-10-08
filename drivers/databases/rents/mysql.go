@@ -20,6 +20,7 @@ func NewMysqlRentRepository(conn *gorm.DB) rents.Repository {
 func (rep *MysqlRentRepository) Create(userID int, domain *rents.Domain) (rents.Domain, error) {
 	rent := fromDomain(*domain)
 	rent.UserID = userID
+	rent.Status = "waiting"
 	result := rep.Conn.Create(&rent)
 
 	if result.Error != nil {
